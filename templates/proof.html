@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ proof.title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="stage">Stage {{ proof.stage }} / Proof URL Viewer</p>
+      <p class="proof-badge">✔ Public Proof URL / Externally Verifiable</p>
+
+      <h1>{{ proof.title }}</h1>
+      <p class="summary">{{ proof.summary }}</p>
+
+      <div class="decision-box">
+        <div>
+          <span class="label">Decision</span>
+          <strong class="accept">{{ proof.decision }}</strong>
+        </div>
+        <div>
+          <span class="label">Trust Score</span>
+          <strong>{{ "%.2f"|format(proof.trust_score) }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="meta-grid">
+      <div class="meta-card">
+        <span>Approved by</span>
+        <strong>{{ proof.approved_by }}</strong>
+      </div>
+      <div class="meta-card">
+        <span>Status</span>
+        <strong>{{ proof.proof_status }}</strong>
+      </div>
+      <div class="meta-card">
+        <span>External Submission</span>
+        <strong>{% if proof.submission_ready %}Ready{% else %}Not Ready{% endif %}</strong>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card"><span>Integrity</span><strong>{{ "%.2f"|format(proof.breakdown.integrity) }}</strong><p>Evidence was hashed and preserved.</p></div>
+      <div class="card"><span>Execution</span><strong>{{ "%.2f"|format(proof.breakdown.execution) }}</strong><p>The verification procedure was executed.</p></div>
+      <div class="card"><span>Identity</span><strong>{{ "%.2f"|format(proof.breakdown.identity) }}</strong><p>The proof includes identity evidence.</p></div>
+      <div class="card"><span>Time</span><strong>{{ "%.2f"|format(proof.breakdown.time) }}</strong><p>The proof includes timestamp evidence.</p></div>
+    </section>
+
+    <section class="flow">
+      <h2>AI Vulnerability → Verification → Proof URL</h2>
+      <div class="flow-line">
+        {% for item in proof.flow %}
+          <div class="flow-item">{{ item }}</div>
+          {% if not loop.last %}<div class="arrow">→</div>{% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="hash-box">
+      <h2>Proof SHA256</h2>
+      <code>{{ proof.proof_sha256 }}</code>
+      <p>This hash allows the proof JSON to be checked for tampering.</p>
+    </section>
+
+    <section class="json-link">
+      <h2>Machine-Readable Proof</h2>
+      <a href="/proofs/{{ proof.proof_id }}.json">Open JSON Proof</a>
+    </section>
+
+    <section class="upgrade">
+      {{ proof.upgrade_cta }}
+    </section>
+  </main>
+</body>
+</html>

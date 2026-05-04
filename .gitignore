@@ -1,0 +1,15 @@
+# secrets / core
+core/
+keys/
+*.pem
+*.key
+*.p12
+*.pfx
+.env
+.env.*
+.DS_Store
+
+# local
+venv/
+__pycache__/
+*.pyc

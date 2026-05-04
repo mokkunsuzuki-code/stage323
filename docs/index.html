@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stage323: YubiKey Signed History</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; }
+    .box { border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin: 20px 0; }
+    code, pre { background: #f6f6f6; padding: 12px; border-radius: 8px; display: block; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Stage323: YubiKey Signed History</h1>
+
+  <div class="box">
+    <h2>Meaning</h2>
+    <p>
+      Stage322 created an audit history.
+      Stage323 adds issuer assurance by signing the history with a GPG/YubiKey-backed issuer key.
+    </p>
+  </div>
+
+  <div class="box">
+    <h2>Signed Files</h2>
+    <ul>
+      <li><a href="proofs/history.json">history.json</a></li>
+      <li><a href="proofs/history.json.sig">history.json.sig</a></li>
+      <li><a href="proofs/public-key.asc">public-key.asc</a></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>Verify Signature</h2>
+    <pre>gpg --import proofs/public-key.asc
+gpg --verify proofs/history.json.sig proofs/history.json</pre>
+  </div>
+
+  <div class="box">
+    <h2>What This Proves</h2>
+    <p>
+      The audit history was not only recorded, but also signed by an identifiable issuer.
+      This makes the audit infrastructure externally verifiable and issuer-backed.
+    </p>
+  </div>
+</body>
+</html>
